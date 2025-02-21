@@ -1,14 +1,20 @@
 import moment from 'moment'
 
+export const PORT = import.meta.env.VITE_API_URL
+export const HOSTNAME = window.location.hostname
+
 function startInterval() {
   setInterval(() => {
     this.currentTime = moment().format('HH:mm:ss')
   }, 1000)
 }
 
+
 async function saveTime() {
   const time = this.currentTime
-  const res = await fetch('http://localhost:5555/times', {
+  
+
+  const res = await fetch(`http://${HOSTNAME}:${PORT}/times`, {
     method: 'POST',
     headers: {
       'Content-Type': 'application/json',
@@ -23,7 +29,7 @@ async function saveTime() {
 }
 
 async function deleteTime(id) {
-  const res = await fetch(`http://localhost:5555/time/${id}`, {
+  const res = await fetch(`http://${HOSTNAME}:${PORT}/time/${id}`, {
     method: 'DELETE',
   })
   const json = await res.json()

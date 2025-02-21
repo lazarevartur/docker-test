@@ -19,7 +19,9 @@ export default {
   },
   created: async function () {
     this.startInterval()
-    const res = await fetch('http://localhost:5555/times')
+    const port = import.meta.env.VITE_API_URL
+    const hostname = window.location.hostname
+    const res = await fetch(`http://${hostname}:${port}/times`)
     const json = await res.json()
     if (json.length) this.savedTimes = json
   },
